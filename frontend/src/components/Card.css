@@ -12,6 +12,10 @@
   cursor: pointer;
 }
 
+.card-container{
+  background-color: floralwhite;
+}
+
 .star-icon {
   width: 20px; /* Adjust size as needed */
 }

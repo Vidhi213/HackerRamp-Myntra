@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+// const Recommendation = require("./models/Recommendation");
 
 const app = express();
 const port = 3001;
@@ -9,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 const uri =
-  "mongodb+srv://vidhi2108:<password>@cluster0.oykzhey.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+  "mongodb+srv://vidhi2108:Ap8WI1B9XJXBBbqx@cluster0.oykzhey.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 // Connect to MongoDB database with proper error handling
 mongoose
@@ -21,6 +22,19 @@ mongoose
   .catch((err) => {
     console.error("Error connecting to MongoDB:", err);
     process.exit(1); // Exit the application on connection failure
+  });
+
+  const Recommendation = require("./models/Recommendation"); // Adjust the path as per your project structure
+
+  // Endpoint to fetch recommendations
+  app.get("/api/recommendations", async (req, res) => {
+    try {
+      const recommendations = await Recommendation.find();
+      res.json(recommendations);
+    } catch (err) {
+      console.error("Error fetching recommendations:", err);
+      res.status(500).json({ error: "Internal server error" });
+    }
   });
 
 // Mongoose Schema for Points
